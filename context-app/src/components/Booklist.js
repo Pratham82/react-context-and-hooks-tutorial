@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import React, { useContext } from "react"
+import { ThemeContext } from "../contexts/ThemeContext"
+import { BookContext } from "../contexts/BookContext"
 
 const Booklist = () => {
-  const { isLightTheme, dark, light } = useContext(ThemeContext);
-  const theme = isLightTheme ? light : dark;
+  const { isLightTheme, dark, light } = useContext(ThemeContext)
+  const theme = isLightTheme ? light : dark
+  const { books } = useContext(BookContext)
+
+  console.log(books)
 
   return (
     <div
@@ -11,16 +15,14 @@ const Booklist = () => {
       style={{ background: theme.bg, color: theme.syntax }}
     >
       <ul>
-        <li style={{ background: theme.ui }}>Deep work - Cal Newport</li>
-        <li style={{ background: theme.ui }}>Ikagai- Hector garcia</li>
-        <li style={{ background: theme.ui }}>Grit - Angela Duckworth</li>
-        <li style={{ background: theme.ui }}>
-          How not to Die - Michael Gregger
-        </li>
-        <li style={{ background: theme.ui }}>Principles - Ray Dalio</li>
+        {books.map((book) => (
+          <li style={{ background: theme.ui }} key={book.id}>
+            <b>{book.title}</b> - {book.author}
+          </li>
+        ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Booklist;
+export default Booklist
